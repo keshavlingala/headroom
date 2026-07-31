@@ -284,6 +284,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **code:** fix two `CodeAwareCompressor` AST-reassembly bugs: an exported JS/TS function or class (`export function foo() {`) produced a duplicated `export export` keyword and invalid syntax, because line-based node slicing (used to preserve indentation) pulled in the preceding `export` sibling's text on top of the `export_statement` handler's own prefix reconstruction. Separately, in every supported language, a doc comment immediately above a top-level function, class, or type was detached from its declaration during extraction and re-emitted in a cluster at the end of the compressed output instead of staying attached to what it documents.
 - * **proxy:** Buffered upstream responses containing a `server_tool_use` (or any other unrecognized Anthropic content block) no longer turn a fully-generated response into an HTTP 502. `StreamingMixin._response_to_sse` raised `ValueError` on unknown block types after the entire upstream generation had already been buffered, so a slow-but-successful response failed and the client retried the whole multi-minute request. Unknown blocks are now emitted verbatim in `content_block_start` (following the existing redacted_thinking` pattern), so `server_tool_use`, `server_tool_result`, `mcp_tool_use`, and future block types round-trip ([#1806](https://github.com/headroomlabs-ai/headroom/issues/1806)).
 
+## [0.33.1](https://github.com/headroomlabs-ai/headroom/compare/v0.33.0...v0.33.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* remove rtk and lean-ctx CLI context tools ([#2677](https://github.com/headroomlabs-ai/headroom/issues/2677)) ([e0ce4b1](https://github.com/headroomlabs-ai/headroom/commit/e0ce4b1d4817e1b352e68e8b316273d863260ba7))
+* **wrap/serena:** stop creating serena_config.yml, unbricking Serena on fresh installs ([#2676](https://github.com/headroomlabs-ai/headroom/issues/2676)) ([759209c](https://github.com/headroomlabs-ai/headroom/commit/759209cff3daa72dd9d47e57568e731d10573d63))
+
 ## [0.33.0](https://github.com/headroomlabs-ai/headroom/compare/v0.32.0...v0.33.0) (2026-07-29)
 
 
